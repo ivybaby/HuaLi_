@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>能管家云平台</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <link rel="stylesheet" href="../lib/weui.min.css">
+    <link rel="stylesheet" href="../css/jquery-weui.css">
+    <link rel="stylesheet" href="../demos/css/demos.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body ontouchstart>
+
+<div class="weui-tab">
+
+    <div class="weui-pull-to-refresh__layer">
+        <div class='weui-pull-to-refresh__arrow'></div>
+        <div class='weui-pull-to-refresh__preloader'></div>
+        <div class="down">下拉刷新</div>
+        <div class="up">释放刷新</div>
+        <div class="refresh">正在刷新</div>
+    </div>
+    <div class="weui-tab__bd">
+
+        <div class="weui-search-bar" id="searchBar">
+            <form class="weui-search-bar__form" action="#">
+                <div class="weui-search-bar__box">
+                    <i class="weui-icon-search"></i>
+                    <input type="search" class="weui-search-bar__input" id="searchInput" placeholder="请输入户号/户名/手机号" required="">
+                    <a href="javascript:" class="weui-icon-clear" id="searchClear"></a>
+                </div>
+                <label class="weui-search-bar__label" id="searchText" style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+                    <i class="weui-icon-search"></i>
+                    <span>请输入户号/户名/手机号</span>
+                </label>
+            </form>
+        </div>
+
+        <div class="weui-flex">
+            <div class="weui-flex__item filter-item"><div class="placeholder">12月</div></div>
+            <div class="weui-flex__item filter-item"><div class="placeholder">时间</div></div>
+        </div>
+
+        <div class="weui-cells">
+            <div class="weui-cell">
+
+                <div class="weui-cell__bd">
+                    <div class="weui-flex">
+                        <div class="weui-flex__item text-center"><div class="placeholder">户名</div></div>
+                        <div class="weui-flex__item text-center"><div class="placeholder">实际电费</div></div>
+                        <div class="weui-flex__item text-center"><div class="placeholder">结算时间</div></div>
+                        <div class="weui-flex__item text-center"><div class="placeholder">余额</div></div>
+                        <div class="weui-flex__item text-center"><div class="placeholder">预计可用</div></div>
+                    </div>
+                </div>
+                <!--<div class="weui-cell__ft">说明文字</div>-->
+            </div>
+        </div>
+
+        <div class="weui-cells fix-cell">
+            <a class="weui-cell weui-cell_access" href="javascript:;">
+                <div class="weui-cell__bd">
+                    <div class="weui-flex">
+                        <div class="weui-flex__item text-center"><div class="placeholder">户名</div></div>
+                        <div class="weui-flex__item text-center"><div class="placeholder">实际电费</div></div>
+                        <div class="weui-flex__item text-center"><div class="placeholder">结算时间</div></div>
+                        <div class="weui-flex__item text-center"><div class="placeholder">余额</div></div>
+                        <div class="weui-flex__item text-center"><div class="placeholder">预计可用</div></div>
+                    </div>
+                </div>
+                <div class="weui-cell__ft">
+                </div>
+            </a>
+        </div>
+
+
+
+        <div id="list" class='demos-content-padded'>
+            <div class="weui-cells">
+                <a class="weui-cell weui-cell_access" href="javascript:;">
+                    <div class="weui-cell__bd">
+                        <p>cell standard</p>
+                    </div>
+                    <div class="weui-cell__ft">
+                    </div>
+                </a>
+                <a class="weui-cell weui-cell_access" href="javascript:;">
+                    <div class="weui-cell__bd">
+                        <p>cell standard</p>
+                    </div>
+                    <div class="weui-cell__ft">
+                    </div>
+                </a>
+            </div>
+            <div class="weui-cells">
+                <a class="weui-cell weui-cell_access" href="javascript:;">
+                    <div class="weui-cell__bd">
+                        <p>cell standard</p>
+                    </div>
+                    <div class="weui-cell__ft">
+                    </div>
+                </a>
+                <a class="weui-cell weui-cell_access" href="javascript:;">
+                    <div class="weui-cell__bd">
+                        <p>cell standard</p>
+                    </div>
+                    <div class="weui-cell__ft">
+                    </div>
+                </a>
+            </div>
+            <div class="weui-cells">
+                <a class="weui-cell weui-cell_access" href="javascript:;">
+                    <div class="weui-cell__bd">
+                        <p>cell standard</p>
+                    </div>
+                    <div class="weui-cell__ft">
+                    </div>
+                </a>
+                <a class="weui-cell weui-cell_access" href="javascript:;">
+                    <div class="weui-cell__bd">
+                        <p>cell standard</p>
+                    </div>
+                    <div class="weui-cell__ft">
+                    </div>
+                </a>
+            </div>      <div class="weui-cells">
+            <a class="weui-cell weui-cell_access" href="javascript:;">
+                <div class="weui-cell__bd">
+                    <p>cell standard</p>
+                </div>
+                <div class="weui-cell__ft">
+                </div>
+            </a>
+            <a class="weui-cell weui-cell_access" href="javascript:;">
+                <div class="weui-cell__bd">
+                    <p>cell standard</p>
+                </div>
+                <div class="weui-cell__ft">
+                </div>
+            </a>
+        </div>      <div class="weui-cells">
+            <a class="weui-cell weui-cell_access" href="javascript:;">
+                <div class="weui-cell__bd">
+                    <p>cell standard</p>
+                </div>
+                <div class="weui-cell__ft">
+                </div>
+            </a>
+            <a class="weui-cell weui-cell_access" href="javascript:;">
+                <div class="weui-cell__bd">
+                    <p>cell standard</p>
+                </div>
+                <div class="weui-cell__ft">
+                </div>
+            </a>
+        </div>
+            <div class="weui-cells">
+                <a class="weui-cell weui-cell_access" href="javascript:;">
+                    <div class="weui-cell__bd">
+                        <p>cell standard</p>
+                    </div>
+                    <div class="weui-cell__ft">
+                    </div>
+                </a>
+                <a class="weui-cell weui-cell_access" href="javascript:;">
+                    <div class="weui-cell__bd">
+                        <p>cell standard</p>
+                    </div>
+                    <div class="weui-cell__ft">
+                    </div>
+                </a>
+            </div>
+            <div class="weui-cells">
+                <a class="weui-cell weui-cell_access" href="javascript:;">
+                    <div class="weui-cell__bd">
+                        <p>cell standard</p>
+                    </div>
+                    <div class="weui-cell__ft">
+                    </div>
+                </a>
+                <a class="weui-cell weui-cell_access" href="javascript:;">
+                    <div class="weui-cell__bd">
+                        <p>cell standard</p>
+                    </div>
+                    <div class="weui-cell__ft">
+                    </div>
+                </a>
+            </div>
+            <div class="weui-cells fix-cell">
+                <a class="weui-cell weui-cell_access" href="javascript:;">
+                    <div class="weui-cell__bd">
+                        <div class="weui-flex">
+                            <div class="weui-flex__item text-center"><div class="placeholder">户名</div></div>
+                            <div class="weui-flex__item text-center"><div class="placeholder">实际电费</div></div>
+
+                        </div>
+                    </div>
+                    <div class="weui-cell__ft">
+                    </div>
+                </a>
+            </div>
+            <div class="weui-cells">
+                <a class="weui-cell weui-cell_access" href="javascript:;">
+                    <div class="weui-cell__bd">
+                        <p>cell standard</p>
+                    </div>
+                    <div class="weui-cell__ft">
+                    </div>
+                </a>
+                <a class="weui-cell weui-cell_access" href="javascript:;">
+                    <div class="weui-cell__bd">
+                        <p>cell standard</p>
+                    </div>
+                    <div class="weui-cell__ft">
+                    </div>
+                </a>
+            </div>
+            <div class="weui-cells">
+                <a class="weui-cell weui-cell_access" href="javascript:;">
+                    <div class="weui-cell__bd">
+                        <p>cell standard</p>
+                    </div>
+                    <div class="weui-cell__ft">
+                    </div>
+                </a>
+                <a class="weui-cell weui-cell_access" href="javascript:;">
+                    <div class="weui-cell__bd">
+                        <p>cell standard</p>
+                    </div>
+                    <div class="weui-cell__ft">
+                    </div>
+                </a>
+            </div>   <div class="weui-cells">
+            <a class="weui-cell weui-cell_access" href="javascript:;">
+                <div class="weui-cell__bd">
+                    <p>cell standard</p>
+                </div>
+                <div class="weui-cell__ft">
+                </div>
+            </a>
+            <a class="weui-cell weui-cell_access" href="javascript:;">
+                <div class="weui-cell__bd">
+                    <p>cell standard</p>
+                </div>
+                <div class="weui-cell__ft">
+                </div>
+            </a>
+        </div>   <div class="weui-cells">
+            <a class="weui-cell weui-cell_access" href="javascript:;">
+                <div class="weui-cell__bd">
+                    <p>cell standard</p>
+                </div>
+                <div class="weui-cell__ft">
+                </div>
+            </a>
+            <a class="weui-cell weui-cell_access" href="javascript:;">
+                <div class="weui-cell__bd">
+                    <p>cell standard</p>
+                </div>
+                <div class="weui-cell__ft">
+                </div>
+            </a>
+        </div>
+            <div class="weui-cells">
+                <a class="weui-cell weui-cell_access" href="javascript:;">
+                    <div class="weui-cell__bd">
+                        <p>cell standard</p>
+                    </div>
+                    <div class="weui-cell__ft">
+                    </div>
+                </a>
+                <a class="weui-cell weui-cell_access" href="javascript:;">
+                    <div class="weui-cell__bd">
+                        <p>cell standard</p>
+                    </div>
+                    <div class="weui-cell__ft">
+                    </div>
+                </a>
+            </div>
+
+        </div>
+        <div class="weui-loadmore">
+            <i class="weui-loading"></i>
+            <span class="weui-loadmore__tips">正在加载</span>
+        </div>
+    </div>
+
+    <div class="weui-tabbar">
+        <a href="#tab1" class="weui-tabbar__item weui-bar__item--on">
+            <div class="weui-tabbar__icon">
+                <img src="../demos/images/icon_nav_button.png" alt="">
+            </div>
+            <p class="weui-tabbar__label">实时电量</p>
+        </a>
+        <a href="#tab2" class="weui-tabbar__item">
+            <div class="weui-tabbar__icon">
+                <img src="../demos/images/icon_nav_msg.png" alt="">
+            </div>
+            <p class="weui-tabbar__label">实时水量</p>
+        </a>
+        <a href="#tab3" class="weui-tabbar__item">
+            <div class="weui-tabbar__icon">
+                <img src="../demos/images/icon_nav_article.png" alt="">
+            </div>
+            <p class="weui-tabbar__label">电费查询</p>
+        </a>
+        <a href="#tab4" class="weui-tabbar__item">
+            <div class="weui-tabbar__icon">
+                <img src="../demos/images/icon_nav_cell.png" alt="">
+            </div>
+            <p class="weui-tabbar__label">水费查询</p>
+        </a>
+    </div>
+</div>
+
+<script src="../lib/jquery-2.1.4.js"></script>
+<script src="../js/jquery-weui.js"></script>
+<script src="../lib/fastclick.js"></script>
+<script>
+    $(function() {
+        FastClick.attach(document.body);
+    });
+</script>
+<script>
+    $(document.body).pullToRefresh().on("pull-to-refresh", function() {
+        setTimeout(function() {
+            $(document.body).pullToRefreshDone();
+        }, 2000);
+    });
+    // infinite
+    var loading = false;
+    $(document.body).infinite().on("infinite", function() {
+        if(loading) return;
+        loading = true;
+        setTimeout(function() {
+            $("#list").append("<p>《世界著名计算机教材精选我们为本科生开设的学科基础必修课“人</p>");
+            loading = false;
+        }, 2000);
+    });
+</script>
+</body>
+</html>

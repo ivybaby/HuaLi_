@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>电费详情</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--- add mui picker.min.css -->
+    <link rel="stylesheet" href="../lib/mui/mui.picker.min.css">
+    <!--- add weui plugins .css -->
+    <link rel="stylesheet" href="../lib/weui.min.css">
+    <link rel="stylesheet" href="../css/jquery-weui.css">
+    <link rel="stylesheet" href="../demos/css/demos.css">
+    <!--- add normal .css by ivybaby -->
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body ontouchstart class="bg-init">
+<div class="pullContent">
+    <!--<div class="weui-pull-to-refresh__layer">-->
+        <!--<div class='weui-pull-to-refresh__arrow'></div>-->
+        <!--<div class='weui-pull-to-refresh__preloader'></div>-->
+        <!--<div class="down">下拉刷新</div>-->
+        <!--<div class="up">释放刷新</div>-->
+        <!--<div class="refresh">正在刷新</div>-->
+    <!--</div>-->
+    <div class="weui-tab">
+        <div class="weui-tab__bd">
+            <div class="weui-cell more-list-li">
+                <div class="weui-cell__hd width-100" >
+                        <div class="weui-flex deep-light-gray preview-border-left">
+                            <div class="weui-flex__item width-100"><span class="font-16 text-primary">2017-11</span><span class="text-light-gray pull-right font-14">
+                                &centerdot;电费(/元)&nbsp;&centerdot;电量(/kwh)
+                            </span></div>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <div class="weui-cell bg-init wui-cell-noborder wui-cell-nopadding-top wui-cell-nopadding-left noOut">
+            <div class="weui-cell__bd">
+                <div class="weui-panel weui-panel_access noOut">
+                        <div class="weui-form-preview__bd font-init">
+                            <div class="weui-form-preview__item">
+                                <label class="weui-form-preview__label">户名:<span class="remind-title margin-l5">张腾</span>
+                                </label>
+                                <span class="weui-form-preview__value">电表数:<em class="text-red margin-l5 font-16"><span class="weui-badge">8</span></em></span>
+                            </div>
+                            <div class="weui-form-preview__item">
+                                <label class="weui-form-preview__label">户号:<span class="remind-title margin-l5">2017122500020003</span>
+                                </label>
+                            </div>
+                            <div class="weui-form-preview__item weui-add-img">
+                                <label class="weui-form-preview__label weui-telphone"><img src="../images/contact_icon.png" /><span class="margin-l5">张腾</span></label>
+                                <a href="javascript:void(0);" class="weui-form-preview__value"><img src="../images/tel_phone_icon.png" /><em class="text-light-gray margin-l5">13555585822552</em></a>
+                            </div>
+                        </div>
+                </div>
+                <div class="padding-15">
+                    <table class="table width-100" border="1">
+                        <thead>
+                        <tr>
+                            <th>计算月份</th>
+                            <th>电度电费</th>
+                            <th>基本电费</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>sjdi</td>
+                            <td>sjdi</td>
+                            <td>sjdi</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table class="table width-100" border="1">
+                        <thead>
+                        <tr>
+                            <th>力率电费</th>
+                            <th>追退电费</th>
+                            <th>应付电费</th>
+                            <th>账户余额</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>sjdi</td>
+                            <td>sjdi</td>
+                            <td>sjdi</td>
+                            <td>sjdi</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="weui-cell bg-init wui-cell-noborder wui-cell-nopadding-top wui-cell-nopadding-left noOut">
+        <div class="weui-cell__bd">
+            <div class="weui-panel weui-panel_access noOut">
+                <div class="weui-form-preview__bd font-init">
+                    <p class="text-left"><span class="font-16 text-green title-margin">B206商铺</span></p>
+                    <div class="weui-form-preview__item">
+                        <label class="weui-form-preview__label">所属单位:<span class="margin-l5">1幢</span>
+                        </label>
+                        <span class="weui-form-preview__value">分摊占比:<em class="text-primary margin-l5">25%</em></span>
+                    </div>
+
+                    <p class="text-left">抄表开始时间:<span class="margin-l5">2017-11-10 00:00:00</span></p>
+                    <p class="text-left">抄表结束时间:<span class="margin-l5">2017-11-10 00:00:00</span></p>
+
+                    <!--<div class="weui-form-preview__item weui-add-img">-->
+                        <!--<label class="weui-form-preview__label weui-telphone"><img src="../images/contact_icon.png" /><span class="margin-l5">张腾</span></label>-->
+                        <!--<a href="javascript:void(0);" class="weui-form-preview__value"><img src="../images/tel_phone_icon.png" /><em class="text-light-gray margin-l5">13555585822552</em></a>-->
+                    <!--</div>-->
+                </div>
+            </div>
+            <div class="padding-15">
+                <table class="table width-100" border="1">
+                    <thead>
+                    <tr>
+                        <th>费率</th>
+                        <th>上期表码</th>
+                        <th>本期表码</th>
+                        <th>倍率</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>sjdi</td>
+                        <td>sjdi</td>
+                        <td>sjdi</td>
+                        <td>sjdi</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table class="table width-100" border="1">
+                    <thead>
+                    <tr>
+                        <th>电量</th>
+                        <th>电价</th>
+                        <th>电量占比</th>
+                        <th>电费</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>sjdi</td>
+                        <td>sjdi</td>
+                        <td>sjdi</td>
+                        <td>sjdi</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <div class="weui-cell bg-init wui-cell-noborder wui-cell-nopadding-top wui-cell-nopadding-left noOut">
+        <div class="weui-cell__bd">
+            <div class="weui-panel weui-panel_access noOut">
+                <div class="weui-form-preview__bd font-init">
+                    <p class="text-left"><span class="font-16 text-green title-margin">B206商铺</span></p>
+                    <div class="weui-form-preview__item">
+                        <label class="weui-form-preview__label">所属单位:<span class="margin-l5">1幢</span>
+                        </label>
+                        <span class="weui-form-preview__value">分摊占比:<em class="text-primary margin-l5">25%</em></span>
+                    </div>
+
+                    <p class="text-left">抄表开始时间:<span class="margin-l5">2017-11-10 00:00:00</span></p>
+                    <p class="text-left">抄表结束时间:<span class="margin-l5">2017-11-10 00:00:00</span></p>
+
+                    <!--<div class="weui-form-preview__item weui-add-img">-->
+                    <!--<label class="weui-form-preview__label weui-telphone"><img src="../images/contact_icon.png" /><span class="margin-l5">张腾</span></label>-->
+                    <!--<a href="javascript:void(0);" class="weui-form-preview__value"><img src="../images/tel_phone_icon.png" /><em class="text-light-gray margin-l5">13555585822552</em></a>-->
+                    <!--</div>-->
+                </div>
+            </div>
+            <div class="padding-15">
+                <table class="table width-100" border="1">
+                    <thead>
+                    <tr>
+                        <th>费率</th>
+                        <th>上期表码</th>
+                        <th>本期表码</th>
+                        <th>倍率</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>sjdi</td>
+                        <td>sjdi</td>
+                        <td>sjdi</td>
+                        <td>sjdi</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table class="table width-100" border="1">
+                    <thead>
+                    <tr>
+                        <th>电量</th>
+                        <th>电价</th>
+                        <th>电量占比</th>
+                        <th>电费</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>sjdi</td>
+                        <td>sjdi</td>
+                        <td>sjdi</td>
+                        <td>sjdi</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+</div>
+
+
+<!-- add weui plugins  .js  -->
+<script src="../lib/jquery-2.1.4.js"></script>
+<script src="../lib/fastclick.js"></script>
+<script src="../js/jquery-weui.js"></script>
+<!-- add mui plugins .js  -->
+<script src="../lib/mui/mui.min.js"></script>
+<script src="../lib/mui/mui.picker.min.js"></script>
+<!-- add normal .js by ivybaby -->
+<script src="../js/normal.js"></script>
+
+<script>
+    $(function() {
+        FastClick.attach(document.body);
+
+    })
+</script>
+<script>
+
+    // infinite
+    var loading1 = false;
+    $('#tab1').infinite().on("infinite", function() {
+        var othis=$(this);
+        if(loading1) return;
+        loading1 = true;
+        setTimeout(function() {
+            othis.append("<p>1111111111111</p>");
+            loading1 = false;
+        }, 2000);
+    });
+
+
+</script>
+</body>
+</html>

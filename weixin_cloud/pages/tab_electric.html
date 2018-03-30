@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>实时电量</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--- add mui picker.min.css -->
+    <link rel="stylesheet" href="../lib/mui/mui.picker.min.css">
+    <!--- add weui plugins .css -->
+    <link rel="stylesheet" href="../lib/weui.min.css">
+    <link rel="stylesheet" href="../css/jquery-weui.css">
+    <link rel="stylesheet" href="../demos/css/demos.css">
+    <!--- add normal .css by ivybaby -->
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body ontouchstart>
+<div class="pullContent" style="overflow: auto;height: 100%;">
+    <div class="weui-pull-to-refresh__layer">
+        <div class="refresh"><i class="weui-loading"></i>正在刷新</div>
+    </div>
+    <div class="weui-tab">
+        <div class="weui-tab__bd">
+            <div class="weui-search-bar" id="searchBar">
+                <form class="weui-search-bar__form" action="#">
+                    <div class="weui-search-bar__box">
+                        <i class="weui-icon-search"></i>
+                        <input type="search" class="weui-search-bar__input" id="searchInput" placeholder="计量点名称" required="">
+                        <a href="javascript:" class="weui-icon-clear" id="searchClear"></a>
+                    </div>
+                    <label class="weui-search-bar__label" id="searchText" style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+                        <i class="weui-icon-search"></i>
+                        <span>计量点名称</span>
+                    </label>
+                </form>
+                <a href="javascript:" class="weui-search-bar__cancel-btn text-primary" id="searchCancel">取消</a>
+            </div>
+            <div class="weui-cell bg-init">
+                <div class="weui-cell__hd width-100" >
+                    <div class="weui-flex deep-light-gray">
+                        <div class="weui-flex__item part-slide-tri"><input class="weui-input weui-pop-div text-center" id="organization" type="text" value="" placeholder="单位"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="weui-cell bg-init wui-cell-noborder wui-cell-nopadding-top wui-cell-nopadding-left">
+                <div class="weui-cell__bd">
+                    <div class="weui-panel weui-panel_access">
+                        <div class="weui-form-preview more-list">
+                            <div class="weui-form-preview__hd text-primary more-list-head text-left preview-border-left">
+                               华立科技股份有限公司
+                            </div>
+                            <div class="more-list-content">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<div class="weui-tabbar">
+    <a href="#tab1" class="weui-tabbar__item weui-bar__item--on">
+        <div class="weui-tabbar__icon">
+            <img src="../images/real_ele_active.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">实时电量</p>
+    </a>
+    <a href="#tab2" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../images/water_normal.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">实时水量</p>
+    </a>
+    <a href="#tab3" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../images/ele_fare_normal.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">电费查询</p>
+    </a>
+    <a href="#tab4" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../images/water_pay_normal.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">水费查询</p>
+    </a>
+</div>
+
+
+
+<!-- add weui plugins  .js  -->
+<script src="../lib/jquery-2.1.4.js"></script>
+<script src="../lib/fastclick.js"></script>
+<script src="../js/jquery-weui.js"></script>
+<!-- add mui plugins .js  -->
+<script src="../lib/mui/mui.min.js"></script>
+<script src="../lib/mui/mui.picker.min.js"></script>
+<!-- add normal .js by ivybaby -->
+<script src="../js/normal.js"></script>
+
+<script>
+
+    $(function() {
+        FastClick.attach(document.body);
+        var pindex;//页码
+        var list;
+        let isOver;//是否没有数据
+        let listDiv='.more-list-content';//对象
+        let mainDiv='.pullContent';//下滑框
+        var loading;//加载更多
+        var pullrefresh;//下拉刷新
+        let vKey;//密钥
+        let vWord;//搜索关键字
+        let vUnit;//第一级别用能单位
+        let subUnit;//第二级别用能单位
+
+
+        $("#organization").picker({
+            title: "单位",
+            cols: [
+                {
+                    textAlign: 'center',
+                    values: ['伊家公寓', '华立大楼']
+                },
+                {
+                    textAlign: 'center',
+                    values: ['1楼', '2楼', '3楼', '4楼', '5楼']
+                }
+            ],
+            onChange: function(p, v, dv) {
+                console.log(p, v, dv);
+//                console.log('onchange');
+            },
+            onClose: function(p, v, d) {
+//                console.log("close");
+            }
+        });
+        var storage= window.localStorage;
+        storage = storage ? storage : [];
+//        $.showLoading();
+        function getListItem(vlist,vTart) {
+            var listHtml='';
+            for(let i in vlist){
+                listHtml+='<a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg wui-cell-nopadding-top">'+'<div class="weui-media-box__bd"><h4 class="weui-media-box__title">'+
+                (vlist[i].point)+'</h4><p class="weui-media-box__desc">'+(vlist[i].dataTime)+'</p></div><div class="weui-media-box__hd">'+ '<span class="weui-media-box__title-after text-red font-16 white-nowrap clear-right">'+(vlist[i].data)+'</span></div></a>';
+            }
+//            listHtml+='<a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg wui-cell-nopadding-top"><div class="weui-loadmore">' +
+//                '<i class="weui-loading"></i>' +
+//                '<span class="weui-loadmore__tips">正在加载</span>' +
+//                '</div></a>';
+            $(vTart).append(listHtml);
+        }
+
+        function getPages(ourl,objdata,callBack,completeBack){  //获取数据
+            $.ajax({
+                url : ourl,
+                type : "POST",
+                data :objdata,
+                dataType : "json",
+                success : function(res) {
+                    if(res.ret===0){//如果成功
+//                      storage.setItem('accountKey',res.data.accountKey );
+                        callBack(res);
+                    }else{
+                        $.toast(res.msg,"cancel", function(toast) {
+                            console.log('失败');
+                        });
+                    }
+                },
+                error:function(msg){
+                    $.toast(msg,"cancel", function(toast) {
+                        console.log(msg);
+                    });
+                },
+                complete:function(){
+                    completeBack();
+                }
+            })
+        }
+        function initPage(aKey,oWord,oUnit,oSubUnit,isFresh){ //默认更新
+
+            $(listDiv).children().remove();
+            $(mainDiv).infinite();
+
+            //        var vKey=storage.setItem('accountKey',res.data.accountKey );
+            vKey="H5AFWOU1HUM=";
+            vWord=$('#searchInput').val();//搜索关键字
+            vUnit=0;//用能单位级别1
+            subUnit=0;//用能单位级别2
+
+            pindex=1;//重置页码
+            isOver=false;//重置有无数据标记
+            list=[];//重置所有数据标记
+            loading = false;//重置加载更多标记
+            pullrefresh=false;//重置下拉刷新标记
+
+            getPages(
+                'http://127.0.0.1:8080/json/eletric.json',
+                {
+//                    accountKey:"H5AFWOU1HUM=",
+                    accountKey:aKey,
+                    keyWord:oWord,//搜索关键字
+                    unit:oUnit,//整数
+                    subUnit:oSubUnit //整数
+                },function (res) {
+                    var olist=res.data.datas;
+                    var oindex=res.data.pageIndex;//页码
+                    var tproperty=res.data.totalProperty;//总记录数
+                    var  tpage=res.data.totalPage;//总页数
+
+                    if(oindex===tpage){
+                        isOver=true;
+                    }
+                    if((tproperty===0)&&(($(listDiv).children().length)===0)){//没有数据的时候
+                        $(listDiv).html('<p class="nodata">没有数据</p>');
+                        return;
+                    }else{
+                        console.log(olist);
+                        getListItem(olist,listDiv);
+                    }
+
+                },function (){
+                    $.hideLoading();
+                    if(isFresh){
+                        pullrefresh=false;
+                        $(mainDiv).pullToRefreshDone();
+                    }else{
+                        loading = false;
+                    }
+
+                });
+        }
+
+        initPage(vKey,vWord,vUnit,subUnit,false);//默认刷新界面
+        $(document).on('input propertychange','#searchInput',function (e) {
+                if (e.type === "input" || e.orignalEvent.propertyName === "value") {
+                    vWord=this.value;
+                    $(this).val(this.value);
+                    initPage(vKey,vWord,vUnit,subUnit,false);//搜索出来的结果
+                }
+        })
+        $('#searchClear,#searchCancel').on('click',function (e) {
+            vWord='';
+            initPage(vKey,vWord,vUnit,subUnit,false);//搜索出来的结果
+        })
+
+        $(mainDiv).pullToRefresh().on("pull-to-refresh", function() {//下拉刷新
+            if(pullrefresh) return;
+            pullrefresh = true;
+            setTimeout(function() {
+//                initPage(vKey,vWord,vUnit,subUnit,true);
+                window.location.reload($(mainDiv));
+                pullrefresh=false;
+                $(mainDiv).pullToRefreshDone();
+            }, 1000);
+        });
+        // infinite
+
+        $(mainDiv).infinite().on("infinite", function() {
+            var self=$(this);
+            if(loading) return;
+            loading = true;
+            var ohtl='<div class="weui-loadmore btm-loadmore">' +
+                '<i class="weui-loading"></i>' +
+                '<span class="weui-loadmore__tips">正在加载</span>' +
+                '</div>';
+            $(listDiv).append(ohtl);
+            setTimeout(function() {
+                if(isOver){//全部数据已经展示
+                    $('.btm-loadmore').remove();
+                    $.toast("已加载全部", function(toast) {
+                        loading = false;
+                        self.destroyInfinite();
+                    });
+                }else{
+                    pindex++;
+                    getPages( 'http://127.0.0.1:8080/json/eletric_1.json',
+                        {
+                            pageIndex:pindex,
+                            accountKey:vKey,
+                            keyWord:vWord,//搜索关键字
+                            unit:vUnit,//整数
+                            subUnit:subUnit //整数
+
+                        },function (res) {
+                            var olist=res.data.datas;
+                            var oindex=res.data.pageIndex;//页码
+                            var tpage=res.data.totalPage;//总页数
+
+                            if(oindex===tpage){
+                                isOver=true;
+                            }
+                            console.log(olist);
+                            getListItem(olist,listDiv);
+
+                        },function (){
+                            $.hideLoading();
+                            loading = false;
+                            $('.btm-loadmore').remove();
+                        });
+                }
+            }, 1000);
+        });
+
+    })
+</script>
+
+
+</body>
+</html>

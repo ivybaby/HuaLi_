@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>电量查询</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--- add mui picker.min.css -->
+    <link rel="stylesheet" href="../lib/mui/mui.picker.min.css">
+    <!--- add weui plugins .css -->
+    <link rel="stylesheet" href="../lib/weui.min.css">
+    <link rel="stylesheet" href="../css/jquery-weui.css">
+    <link rel="stylesheet" href="../demos/css/demos.css">
+    <!--- add normal .css by ivybaby -->
+    <link rel="stylesheet" href="../css/style.css">
+
+</head>
+<body ontouchstart>
+<div class="pullContent" style="overflow: auto;height: 100%;">
+    <div class="weui-pull-to-refresh__layer">
+        <div class='weui-pull-to-refresh__arrow'></div>
+        <div class='weui-pull-to-refresh__preloader'></div>
+        <div class="down">下拉刷新</div>
+        <div class="up">释放刷新</div>
+        <div class="refresh">正在刷新</div>
+    </div>
+    <div class="weui-tab">
+        <div class="weui-tab__bd">
+            <div class="weui-search-bar" id="searchBar">
+                <form class="weui-search-bar__form" action="#">
+                    <div class="weui-search-bar__box">
+                        <i class="weui-icon-search"></i>
+                        <input type="search" class="weui-search-bar__input" id="searchInput" placeholder="请输入户号/户名/手机号" required="">
+                        <a href="javascript:" class="weui-icon-clear" id="searchClear"></a>
+                    </div>
+                    <label class="weui-search-bar__label" id="searchText" style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+                        <i class="weui-icon-search"></i>
+                        <span>请输入户号/户名/手机号</span>
+                    </label>
+                </form>
+            </div>
+            <div class="weui-cell bg-init">
+                <div class="weui-cell__hd width-100" >
+                    <div class="weui-flex deep-light-gray">
+                        <div class="weui-flex__item part-slide-tri"><input class="weui-input weui-pop-div text-center" id="organization" type="text" value="计量点"></div>
+                        <div class="weui-flex__item part-slide-tri"><button class="weui-input mui-date" id="exterMonth1"  data-options='{"type":"month"}'></button></div>
+                    </div>
+                </div>
+            </div>
+            <label for="weuiAgree" class="weui-agree">
+                <input id="weuiAgree" type="checkbox" class="weui-agree__checkbox">
+                <span class="weui-agree__text">
+                  是否按日筛选
+                </span>
+            </label>
+
+            <div class="weui-cell bg-init wui-cell-noborder">
+                <div class="weui-cell__bd width-100" >
+                    <div class="weui-flex deep-light-gray">
+                        <div class="weui-flex__item text-green">终端个数:<span class="weui-badge margin-l5 weui-badge-green">8</span></div>
+                        <div class="weui-flex__item text-orange">计量点个数:<span class="weui-badge margin-l5 weui-badge-orange">8</span></div>
+                    </div>
+                    <div class="weui-flex deep-light-gray">
+                        <div class="weui-flex__item">在线个数:<span class="weui-badge margin-l5 weui-badge-gray">8</span></div>
+                        <div class="weui-flex__item text-primary">未实时上报个数:<span class="weui-badge margin-l5 weui-badge-primary">8</span></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="padding-15 bg-init padding-b15">
+                <table class="table width-100" border="1">
+                    <thead>
+                    <tr>
+                        <th>计量点</th>
+                        <th>起码</th>
+                        <th>止码</th>
+                        <th>倍率</th>
+                        <th>水量</th>
+                    </tr>
+                    </thead>
+                    <tbody class="font-14">
+                    <tr>
+                        <td>sjdi</td>
+                        <td>sjdi</td>
+                        <td>sjdi</td>
+                        <td>sjdi</td>
+                        <td>sjdi</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+<div class="weui-tabbar">
+    <a href="#tab1" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../images/real_ele_normal.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">实时电量</p>
+    </a>
+    <a href="#tab2" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../images/water_normal.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">实时水量</p>
+    </a>
+    <a href="#tab3" class="weui-tabbar__item weui-bar__item--on">
+        <div class="weui-tabbar__icon">
+            <img src="../images/ele_fare_active.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">电量查询</p>
+    </a>
+    <a href="#tab4" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../images/water_pay_normal.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">水量查询</p>
+    </a>
+</div>
+
+
+
+<!-- add weui plugins  .js  -->
+<script src="../lib/jquery-2.1.4.js"></script>
+<script src="../lib/fastclick.js"></script>
+<script src="../js/jquery-weui.js"></script>
+<!-- add mui plugins .js  -->
+<script src="../lib/mui/mui.min.js"></script>
+<script src="../lib/mui/mui.picker.min.js"></script>
+<!-- add normal .js by ivybaby -->
+<script src="../js/normal.js"></script>
+<script>
+    (function($) {
+        function getDateInit(btns,result){
+
+            btns.each(function(i, btn) {
+                btn.addEventListener('tap', function() {
+
+                    var _self = this;
+                    if(_self.picker) {
+                        _self.picker.show(function (rs) {
+                            result.innerText = rs.text;
+                            _self.picker.dispose();
+                            _self.picker = null;
+                        });
+                    } else {
+                        var optionsJson = this.getAttribute('data-options') || '{}';
+                        var options = JSON.parse(optionsJson);
+                        var id = this.getAttribute('id');
+
+                        _self.picker = new $.DtPicker(options);
+                        _self.picker.show(function(rs) {
+                            /*
+                             * rs.value 拼合后的 value
+                             * rs.text 拼合后的 text
+                             * rs.y 年，可以通过 rs.y.vaue 和 rs.y.text 获取值和文本
+                             * rs.m 月，用法同年
+                             * rs.d 日，用法同年
+                             * rs.h 时，用法同年
+                             * rs.i 分（minutes 的第二个字母），用法同年
+                             */
+                            result.innerText = rs.text;
+
+                            /*
+                             * 返回 false 可以阻止选择框的关闭
+                             * return false;
+                             */
+                            /*
+                             * 释放组件资源，释放后将将不能再操作组件
+                             * 通常情况下，不需要示放组件，new DtPicker(options) 后，可以一直使用。
+                             * 当前示例，因为内容较多，如不进行资原释放，在某些设备上会较慢。
+                             * 所以每次用完便立即调用 dispose 进行释放，下次用时再创建新实例。
+                             */
+                            _self.picker.dispose();
+                            _self.picker = null;
+                        });
+                    }
+                }, false);
+            });
+        }
+        getDateInit($('#exterMonth1'),$('#exterMonth1')[0]);
+
+    })(mui);
+</script>
+
+<script>
+    $(function() {
+        FastClick.attach(document.body);
+
+        $("#organization").picker({
+            title: "单位",
+            cols: [
+                {
+                    textAlign: 'center',
+                    values: ['伊家公寓', '华立大楼']
+                },
+                {
+                    textAlign: 'center',
+                    values: ['1楼', '2楼', '3楼', '4楼', '5楼']
+                }
+            ],
+            onChange: function(p, v, dv) {
+                console.log(p, v, dv);
+                console.log('onchange');
+            },
+            onClose: function(p, v, d) {
+                console.log("close");
+            }
+        });
+
+        /*  默认日期为当前日期 */
+        var xDate=new Date();
+        var oMonth=xDate.getMonth()+1;
+        if(oMonth<10){
+            oMonth='0'+oMonth;
+        }
+        var str=xDate.getFullYear()+'-'+(oMonth);
+        $('.mui-date').text(str);
+
+        /* tab切换时关闭所有pop弹框 */
+        $(".weui-pop-div,.weui-navbar__item").on('click',function(e){
+            e.preventDefault();
+            $('.close-select').click();
+            $('.mui-dtpicker').removeClass('mui-active');
+        });
+
+        /* 充值记录 */
+        $("#recharge").select({
+            title: "充值类型",
+            items: ["在线充值", "线下充值", "退回充值"],
+            onChange: function (d) {
+            },
+            onClose: function (vals) {
+                var selectedOption = vals.data;
+                var obj=$("#recharge");
+                var oPar = obj.closest('.part-slide-tri');
+                oPar.removeClass('part-slide-tri-after');
+
+                var oVal = '充值类型';
+                for (var i in selectedOption.origins) {
+                    oVal = selectedOption.origins[i].value;
+                }
+                if (oVal == '充值类型') {
+                    obj.val('充值类型').attr('data-values', '充值类型');
+                }
+            },
+            onOpen: function () {
+                $('.part-slide-tri').removeClass('part-slide-tri-after');
+                var oPar = $("#recharge").closest('.part-slide-tri');
+                oPar.addClass('part-slide-tri-after');
+            }
+        });
+
+        /* mui datepicker */
+        $('.mui-date').on('click',function(){
+            $('.part-slide-tri').removeClass('part-slide-tri-after');
+            var oPar = $(this).closest('.part-slide-tri');
+            oPar.addClass('part-slide-tri-after');
+        });
+
+    })
+</script>
+<script>
+    $('.pullContent').pullToRefresh().on("pull-to-refresh", function() {
+        setTimeout(function() {
+            $('.pullContent').pullToRefreshDone();
+        }, 2000);
+    });
+    // infinite
+    var loading = false;
+
+    $('.pullContent').infinite().on("infinite", function() {
+        var othis=$(this);
+        if(loading) return;
+        loading = true;
+        setTimeout(function() {
+            othis.append("<p>1111111111111</p>");
+            loading = false;
+        }, 2000);
+    });
+</script>
+</body>
+</html>

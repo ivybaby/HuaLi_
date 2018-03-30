@@ -1,0 +1,21 @@
+{
+  "name": "weixin_cloud",
+  "version": "1.0.0",
+  "description": "",
+  "main": "hello.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ivybaby/HuaLi_/tree/master/weixin_cloud"
+  },
+  "keywords": [
+    "cloud"
+  ],
+  "author": "ivybaby",
+  "license": "ISC"
+}

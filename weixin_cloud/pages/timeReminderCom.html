@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件提醒-企业</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--- add mui picker.min.css -->
+    <link rel="stylesheet" href="../lib/mui/mui.picker.min.css">
+    <!--- add weui plugins .css -->
+    <link rel="stylesheet" href="../lib/weui.min.css">
+    <link rel="stylesheet" href="../css/jquery-weui.css">
+    <link rel="stylesheet" href="../demos/css/demos.css">
+    <!--- add normal .css by ivybaby -->
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body ontouchstart>
+
+    <div class="weui-pull-to-refresh__layer">
+        <div class="refresh"><i class="weui-loading"></i>正在刷新</div>
+    </div>
+    <div class="weui-tab">
+              <div class="weui-cell padding-5">
+                        <div class="text-light-gray">
+                                <small class="white-nowrap" style="margin-right:.5em;">昨日异常事件总计<em class="text-red">18</em>件</small><small class="white-nowrap">今日目前<em class="text-primary">3</em>件</small>
+                        </div>
+                </div>
+                <div class="weui-cell bg-init wui-cell-noborder wui-cell-nopadding-top wui-cell-nopadding-left">
+                    <div class="weui-cell__bd">
+                        <div class="weui-panel weui-panel_access">
+                            <div class="weui-panel__bd more-list-content">
+                                <!--<a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg wui-cell-nopadding-top">-->
+                                    <!--<div class="weui-media-box__bd">-->
+                                        <!--<p class="weui-media-box__desc text-green remind-title">rrererer退回充值退回充值退回充值退回充值退回充值退回充值rerererer</p>-->
+                                    <!--</div>-->
+                                    <!--<div class="weui-media-box__hd weui-media-box__desc white-nowrap weui-media-box-width">-->
+                                        <!--2018-11-21-->
+                                    <!--</div>-->
+                                <!--</a>-->
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+    </div>
+
+
+
+<!-- add weui plugins  .js  -->
+<script src="../lib/jquery-2.1.4.js"></script>
+<script src="../lib/fastclick.js"></script>
+<script src="../js/jquery-weui.js"></script>
+<!-- add mui plugins .js  -->
+<script src="../lib/mui/mui.min.js"></script>
+<script src="../lib/mui/mui.picker.min.js"></script>
+<!-- add normal .js by ivybaby -->
+<script src="../js/normal.js"></script>
+
+<script>
+    $(function() {
+        FastClick.attach(document.body);
+        var pindex;//页码
+        var listDiv='.more-list-content';//对象
+        var mainDiv=document.body;
+        var pullrefresh;
+        let isOver;//是否没有数据
+
+        function getListItem(vlist,vTart) {
+            var listHtml='';
+            for(let i in vlist){
+                var xtime=vlist[i].dataTime;
+                var finalTime=xtime.substring(0,xtime.indexOf(' '))
+                listHtml+='<a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg wui-cell-nopadding-top">'+' <div class="weui-media-box__bd"><p class="weui-media-box__desc text-green remind-title">'+
+                    (vlist[i].eventDesc)+'</p></div><div class="weui-media-box__hd weui-media-box__desc white-nowrap weui-media-box-width margin-l5">'+(finalTime)+'</div></a>';
+            }
+            $(vTart).append(listHtml);
+        }
+
+        function getPages(ourl,objdata,callBack,completeBack){  //获取数据
+            $.ajax({
+                url : ourl,
+                type : "POST",
+                data :objdata,
+                dataType : "json",
+                success : function(res) {
+                    if(res.ret===0){//如果成功
+//                      storage.setItem('accountKey',res.data.accountKey );
+                        callBack(res);
+                    }else{
+                        $.toast(res.msg,"cancel", function(toast) {
+                            console.log('失败');
+                        });
+                    }
+                },
+                error:function(msg){
+                    $.toast(msg,"cancel", function(toast) {
+                        console.log(msg);
+                    });
+                },
+                complete:function(){
+                    completeBack();
+                }
+            })
+        }
+        function initPage(oindex,isFresh){ //默认更新
+
+            $(listDiv).children().remove();
+            $(mainDiv).infinite();
+
+            pindex=1;//重置页码
+
+            isOver=false;//重置有无数据标记
+            loading = false;//重置加载更多标记
+            pullrefresh=false;//重置下拉刷新标记
+
+            getPages(
+            'http://127.0.0.1:8080/json/com_timeReminder.json',
+            {
+                accountKey:window.localStorage.getItem('accountKey'),
+                pageIndex:oindex
+            },function (res) {
+                var olist=res.data.datas;
+                var oindex=res.data.pageIndex;//页码
+                var tproperty=res.data.totalProperty;//总记录数
+                var tpage=res.data.totalPage;//总页数
+
+                if(oindex===tpage){
+                    isOver=true;
+                }
+                if((tproperty===0)&&(($(listDiv).children().length)===0)){//没有数据的时候
+                    $(listDiv).html('<p class="nodata">没有数据</p>');
+                    return;
+                }else{
+                    console.log(olist);
+                    getListItem(olist,listDiv);
+                }
+
+            },function (){
+                $.hideLoading();
+                if(isFresh){
+                    pullrefresh=false;
+                    $(mainDiv).pullToRefreshDone();
+                }else{
+                    loading = false;
+                }
+
+            });
+    }
+       initPage(pindex,false);
+
+        $(mainDiv).pullToRefresh().on("pull-to-refresh", function() {//下拉刷新
+            if(pullrefresh) return;
+            pullrefresh = true;
+            setTimeout(function() {
+//                initPage(vKey,vWord,vUnit,subUnit,true);
+                $(mainDiv).pullToRefreshDone();
+                window.location.reload($(mainDiv));
+                pullrefresh=false;
+
+            }, 1000);
+        });
+        // infinite
+        var loading = false;
+        $(mainDiv).infinite().on("infinite", function() {
+
+            if(loading) return;
+            loading = true;
+            var ohtl='<div class="weui-loadmore btm-loadmore">' +
+                '<i class="weui-loading"></i>' +
+                '<span class="weui-loadmore__tips">正在加载</span>' +
+                '</div>';
+            $(listDiv).append(ohtl);
+            setTimeout(function() {
+                if(isOver){//全部数据已经展示
+                    $('.btm-loadmore').remove();
+                    $.toast("已加载全部", function(toast) {
+                        loading = false;
+                        self.destroyInfinite();
+                    });
+                }else{
+                    pindex++;
+                    getPages( 'http://127.0.0.1:8080/json/eletric_1.json',
+                        {
+                            pageIndex:pindex,
+                            accountKey:vKey
+                        },function (res) {
+                            var olist=res.data.datas;
+                            var oindex=res.data.pageIndex;//页码
+                            var tpage=res.data.totalPage;//总页数
+
+                            if(oindex===tpage){
+                                isOver=true;
+                            }
+                            console.log(olist);
+                            getListItem(olist,listDiv);
+
+                        },function (){
+                            $.hideLoading();
+                            loading = false;
+                            $('.btm-loadmore').remove();
+                        });
+                }
+            }, 2000);
+        });
+
+    })
+</script>
+
+</body>
+</html>

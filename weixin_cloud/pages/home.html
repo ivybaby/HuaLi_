@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>个人中心</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <link rel="stylesheet" href="../lib/weui.min.css">
+    <link rel="stylesheet" href="../css/jquery-weui.css">
+    <link rel="stylesheet" href="../demos/css/demos.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body ontouchstart>
+<div class="weui-cells weui-cells_form margin-10">
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">用户名</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text" placeholder="请输入用户名">
+        </div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">公司名</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text" placeholder="请输入公司名">
+        </div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__hd">
+            <label class="weui-label">联系电话</label>
+        </div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="tel" placeholder="请输入联系电话">
+        </div>
+    </div>
+</div>
+<div class="demos-content-padded btn-margin-40">
+    <a href="javascript:void(0);" class="weui-btn weui-btn_primary">注销</a>
+</div>
+
+<script src="../lib/jquery-2.1.4.js"></script>
+<script src="../js/jquery-weui.js"></script>
+<script src="../lib/fastclick.js"></script>
+<script src="../js/normal.js"></script>
+<script>
+    $(function() {
+        FastClick.attach(document.body);
+    });
+</script>
+</body>
+</html>
